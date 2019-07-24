@@ -1,4 +1,4 @@
-pipeline {
+epipeline {
     agent any
     environment {
         //be sure to replace "willbla" with your own Docker Hub username
@@ -45,7 +45,11 @@ pipeline {
             steps {
                 input 'Deploy to Production?'
                 milestone(1)
-                //implement Kubernetes deployment here
+                KuberneteseDeploy {
+                   KubeconfigID: 'kubeconfig',
+                   configs: 'train-schedule-kube.yml',
+                   enableConfigSubstitution: true
+                }
             }
         }
     }
